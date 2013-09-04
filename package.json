@@ -1,0 +1,15 @@
+{
+  "name": "thinkstack",
+  "preferGlobal": true,
+  "version": "0.0.1",
+  "author": "Laurie Voss <info@thinkstack.com>",
+  "description": "a tool for making deployment automation easy",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seldo/thinkstack.git"
+  },
+  "dependencies" : {},
+  "devDependencies": {},
+  "bundledDependencies": [],
+  "license": "MIT"
+}
