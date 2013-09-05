@@ -8,7 +8,10 @@
     "type": "git",
     "url": "https://github.com/seldo/thinkstack.git"
   },
-  "dependencies" : {},
+  "dependencies" : {
+    "path": "*",
+    "nopt": "*"
+  },
   "devDependencies": {},
   "bundledDependencies": [],
   "license": "MIT"
