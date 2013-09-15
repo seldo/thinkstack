@@ -9,10 +9,16 @@
     "url": "https://github.com/seldo/thinkstack.git"
   },
   "dependencies" : {
+    "underscore": "*",
+    "fs-extra": "*",
     "path": "*",
     "nopt": "*"
   },
   "devDependencies": {},
   "bundledDependencies": [],
-  "license": "MIT"
+  "license": "MIT",
+  "preferGlobal": "true",
+  "bin": {
+    "stack" : "stack.js"
+  }
 }

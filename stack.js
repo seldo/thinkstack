@@ -1,8 +1,35 @@
-#!/usr/local/bin/node
+#! /usr/bin/env node
 
-var path = require('path'),
+var _ = require('underscore'),
+  fs = require('fs-extra'),
+  path = require('path'),
   nopt = require('nopt');
 
-var command = process.argv[2]
+var nodebin = process.argv.shift()
+var scriptname = process.argv.shift()
+var command = process.argv.shift()
 
-console.log(command)
+var commands = ['add', 'create', 'deploy', 'help', 'login', 'start', 'stop']
+
+// no command
+if (!command) {
+  console.log("\nUsage: stack <command>\n" +
+    "Where <command> is one of: " + commands.join(', ') + "\n" +
+    "Try 'stack help <command>' for more information\n")
+  return;
+}
+
+// invalid command
+if(!_.contains(commands,command)) {
+  console.log("\nUnrecognized command '" + command + "'")
+  return;
+}
+
+// invalid execution location
+fs.readJsonSync('./deploy.json',function(er,deployData) {
+  if (er) {
+    console.log(er)
+    return;
+  }
+  require('./commands/'+command)(deployData,process.argv)
+})
