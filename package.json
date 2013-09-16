@@ -12,7 +12,8 @@
     "underscore": "*",
     "fs-extra": "*",
     "path": "*",
-    "nopt": "*"
+    "nopt": "*",
+    "async": "*"
   },
   "devDependencies": {},
   "bundledDependencies": [],

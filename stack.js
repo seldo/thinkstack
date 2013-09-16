@@ -25,8 +25,14 @@ if(!_.contains(commands,command)) {
   return;
 }
 
+// help does not require a deploy file
+if(command == 'help') {
+  require('./commands/help')({},process.argv)
+  return;
+}
+
 // invalid execution location
-fs.readJsonSync('./deploy.json',function(er,deployData) {
+fs.readJson('./deploy.json',function(er,deployData) {
   if (er) {
     console.log(er)
     return;
