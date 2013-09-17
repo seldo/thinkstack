@@ -1,3 +1,4 @@
 {
-  "start": "service nginx start"
+  "start": "service nginx start",
+  "stop": "service nginx stop"
 }

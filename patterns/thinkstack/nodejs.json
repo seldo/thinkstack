@@ -1,4 +1,5 @@
 {
   "start": "node app.js",
-  "devstart": "supervisor app.js $PORT"
+  "devstart": "supervisor app.js",
+  "stop": "ps a | grep node | grep supervisor | awk '{print $1}' | xargs kill"
 }

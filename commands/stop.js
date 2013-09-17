@@ -1,11 +1,11 @@
-// bring up the specified environment according to the instructions in deploy.json
+// stop all the things
 var cp = require('child_process'),
   patterns = require('../patterns'),
   _ = require('underscore')
 
 module.exports = function(deployData,argv) {
 
-  console.log("Start")
+  console.log("Stop")
   console.log(deployData)
 
   var environment = argv.shift()
@@ -13,17 +13,11 @@ module.exports = function(deployData,argv) {
 
   _.each(deployData.resources,function(resource,index) {
     patterns.load(resource['pattern'],function(pattern) {
-      var start = pattern['start']
-      if (environment == 'development' && pattern['devstart']) {
-        start = pattern['devstart']
-      }
+      var stop = pattern['stop']
       var commands = []
       commands.push("sudo su")
-      if(resource['location']) {
-        commands.push("cd /vagrant/" + resource['location'])
-      }
-      commands.push(start)
-      var fullCommand = 'vagrant ssh -c \'' + commands.join('; ') + '\''
+      commands.push(stop)
+      var fullCommand = 'vagrant ssh -c "' + commands.join('; ') + '"'
       console.log(fullCommand)
       cp.exec(
         fullCommand,
