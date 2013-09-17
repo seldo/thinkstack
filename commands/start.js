@@ -1,6 +1,7 @@
 // bring up the specified environment according to the instructions in deploy.json
 var cp = require('child_process'),
-  patterns = require('../patterns')
+  patterns = require('../patterns'),
+  _ = require('underscore')
 
 module.exports = function(deployData,argv) {
 
@@ -10,7 +11,7 @@ module.exports = function(deployData,argv) {
   var environment = argv.shift()
   if (!environment) environment = 'development'
 
-  deployData.resources.forEach(function(resource,index) {
+  _.each(deployData.resources,function(resource,index) {
     patterns.load(resource['pattern'],function(pattern) {
       var start = pattern['start']
       if (environment == 'development' && pattern['startdev']) {
