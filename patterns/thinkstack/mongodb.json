@@ -1,0 +1,4 @@
+{
+  "start": "service mongodb start",
+  "stop": "service mongodb stop"
+}
