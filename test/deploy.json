@@ -1,0 +1,17 @@
+{
+  "resources": {
+    "balancer": {
+      "pattern": "thinkstack/nginx-balancer",
+      "location": "services/balancer",
+	  "ip": "192.168.1.1"
+    }
+  },
+  "environments": {
+    "development": {
+      "web": {
+      },
+      "auth": {
+      }
+    }
+  }
+}
