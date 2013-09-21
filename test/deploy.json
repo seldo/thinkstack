@@ -3,7 +3,14 @@
     "balancer": {
       "pattern": "thinkstack/nginx-balancer",
       "location": "services/balancer",
-	  "ip": "192.168.1.1"
+      "ip": "192.168.1.1",
+      "connect-to": ["web"]
+    },
+    "web": {
+      "pattern": "thinkstack/nodejs",
+      "location": "services/web",
+      "ip": "192.168.1.2",
+      "connect-to": ["balancer"]
     }
   },
   "environments": {
