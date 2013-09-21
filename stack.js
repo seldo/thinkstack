@@ -34,7 +34,7 @@ if(command == 'help') {
 // invalid execution location
 fs.readJson('./deploy.json',function(er,deployData) {
   if (er) {
-    console.log(er)
+    console.log("Error parsing deploy.json: " + er)
     return;
   }
   require('./commands/'+command)(deployData,process.argv)

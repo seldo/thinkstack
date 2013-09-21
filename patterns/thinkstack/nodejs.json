@@ -1,5 +1,5 @@
 {
-  "image": "",
+  "image": "thinkstack/node-0.0.2",
   "start": "node app.js",
   "devstart": "supervisor app.js",
   "stop": "ps a | grep node | grep supervisor | awk '{print $1}' | xargs kill"
