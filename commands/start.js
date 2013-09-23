@@ -28,29 +28,31 @@ module.exports = function(deployData,argv) {
       // what to return for each one
       function(resource,name) {
         return function(cb) { // this is the one passed to parallel() below, cb goes there
-          if(containers.isRunning(name)) {
-            cb(null,{"name": name, "id": containers.getId(name)})
-          } else {
-            patterns.load(resource.pattern,function(pattern) {
-              var command = 'vagrant ssh -c "sudo docker run -d -v \'/vagrant/' + resource.location + ':/home/thinkstack\' ' + pattern.image + '"'
-              console.log("Running: " + command)
-              cp.exec(
-                command,
-                function(er,stdout,stderr) {
-                  if(er) {
-                    console.log("Failed starting container for " + name)
-                    console.log(er)
-                    cb(er)
-                  } else {
-                    var containerId = stdout.trim();
-                    console.log("Started container " + name + ", output was " + stdout + "stderr=[" + stderr + "]")
-                    containers.setRunning(name)
-                    cb(null,{"name": name, "id": containerId})
+          containers.isRunning(name,function(isRunning) {
+            if (isRunning) {
+              cb(null,{"name": name, "id": containers.getId(name)})
+            } else {
+              patterns.load(resource.pattern,function(pattern) {
+                var command = 'vagrant ssh -c "sudo docker run -d -v \'/vagrant/' + resource.location + ':/home/thinkstack\' ' + pattern.image + '"'
+                console.log("Running: " + command)
+                cp.exec(
+                  command,
+                  function(er,stdout,stderr) {
+                    if(er) {
+                      console.log("Failed starting container for " + name)
+                      console.log(er)
+                      cb(er)
+                    } else {
+                      var containerId = stdout.trim();
+                      console.log("Started container " + name + ", output was " + stdout + "stderr=[" + stderr + "]")
+                      containers.setRunning(name,containerId)
+                      cb(null,{"name": name, "id": containerId})
+                    }
                   }
-                }
-              )
-            })
-          }
+                )
+              })
+            }
+          })
         }
 
       }
@@ -74,7 +76,7 @@ module.exports = function(deployData,argv) {
         if (er) {
           console.log("One or more containers failed to start. You should find out why. Moving on... [" + er + "]")
         }
-        connectContainers(deployData,containerObjects)
+        containers.connectAll(deployData,containerObjects)
     })
   })
 }
